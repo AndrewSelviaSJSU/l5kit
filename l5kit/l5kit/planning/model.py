@@ -33,7 +33,7 @@ class PlanningModel(nn.Module):
         elif model_arch == "resnet50":
             # self.model = resnet50(pretrained=pretrained)
             self.model = resnet50(pretrained=False)
-            self.model.load_state_dict(torch.load('../../data/models/resnet50-19c8e357.pth'))
+            self.model.load_state_dict(torch.load('/home/014547273/cmpe258/models/resnet50-19c8e357.pth'))
             self.model.fc = nn.Linear(in_features=2048, out_features=num_targets)
         else:
             raise NotImplementedError(f"Model arch {model_arch} unknown")
