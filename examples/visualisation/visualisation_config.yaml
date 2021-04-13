@@ -49,7 +49,6 @@ raster_params:
 ###################
 ## Data loader options
 val_data_loader:
-#  key: "scenes/sample.zarr"
   key: "sample/sample.zarr"
   batch_size: 12
   shuffle: False
