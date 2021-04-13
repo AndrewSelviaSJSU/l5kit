@@ -1,5 +1,5 @@
-ipykernel
-jupyterlab
-opencv-python
+ipykernel==5.5.3
+jupyterlab==3.0.14
+opencv-python==4.5.1.48
 tensorflow-gpu==2.0.0
-file:./l5kit
+l5kit==1.2.0
