@@ -25,6 +25,11 @@ done
 ```
 
 ```shell
+cd $ROOT/models
+curl -O https://download.pytorch.org/models/resnet50-19c8e357.pth 
+```
+
+```shell
 cd $ROOT
 git clone https://github.com/AndrewSelviaSJSU/l5kit.git
 cd l5kit
@@ -36,7 +41,6 @@ cd $ROOT
 module load python3/3.6.6 cuda/10.0
 virtualenv venv
 source venv/bin/activate
-cd l5kit/cmpe258
 pip install -r requirements.txt
 ```
 
