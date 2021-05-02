@@ -34,8 +34,9 @@ With an active SJSU VPN connection, you should now be able to access the HPC sys
 Begin by creating a SSH tunnel from your `localhost` to the HPC system. If you're curious, the tunnel will be used later to allow you to view and edit Jupyter notebooks on your machine while they run on a GPU in the SJSU HPC. Remember to define your `SJSU_ID` (i.e. `SJSU_ID=123456789`) in the command below prior to executing. When prompted, enter your SJSU password.
 
 ```shell
-SJSU_ID=
-ssh -L 10001:localhost:10001 $SJSU_ID@coe-hpc1.sjsu.edu
+PORT=# an arbitrary, unclaimed port (i.e. 10005); caution: the commands below assume you use the same value for each definition of PORT
+SJSU_ID=# your SJSU numeric ID (i.e. 123456789)
+ssh -L "$PORT":localhost:$PORT $SJSU_ID@coe-hpc1.sjsu.edu
 ```
 
 With the tunnel to the head node established, you should have a shell on the HPC system. Define `ROOT` so that downstream commands and code can use it as an absolute point of reference.
@@ -90,14 +91,20 @@ pip install -r requirements.txt
 By now, your environment should be properly configured on the SJSU HPC system. It is now time to run JupyterLab on the GPU and verify that things are working properly. In the commands below, you can define `MAIL_USER` (i.e. `MAIL_USER=first-name.last-name@sjsu.edu`) so that the batch job you submit to run on SLURM will email you upon completion. These commands rely on [script.sh](script.sh) which sets up the environment and runs JupyterLab on a GPU node. The surrounding shell commands simply automate processes so you don't have to think about how to obtain the `GPU_ID` which you will use at the end to create a second SSH tunnel into the GPU running your job.
 
 ```shell
-MAIL_USER=
-JOB_ID=$(sbatch --mail-user=$MAIL_USER --export=ALL,ROOT=$ROOT $ROOT/l5kit/cmpe258/script.sh | awk '{print $4}')
+MAIL_USER=# an email address to which an email should be sent upon completion of the batch job
+PORT=# an arbitrary, unclaimed port (i.e. 10005); caution: the commands below assume you use the same value for each definition of PORT
+JOB_ID=$(sbatch --mail-user=$MAIL_USER --export=ALL,ROOT=$ROOT,PORT=$PORT $ROOT/l5kit/cmpe258/script.sh | awk '{print $4}')
 sleep 1 # Give slurm time to allocate the resources before calling squeue (you may have to tune this based on cluster traffic)
 GPU_ID=$(squeue | grep $JOB_ID | awk '{print $8}')
-ssh -L 10001:localhost:10001 $(whoami)@$GPU_ID
+ssh -L "$PORT":localhost:$PORT $(whoami)@$GPU_ID
 ```
 
-Leave the SSH tunnel running in the background. Point your local web browser to [JupyterLab](http://localhost:10001/lab) to view and edit the Jupyter notebooks which you will use to train and evaluate your deep learning models.
+Leave the SSH tunnel running in the background. Point your local web browser to JupyterLab to view and edit the Jupyter notebooks which you will use to train and evaluate your deep learning models:
+
+```shell
+PORT=# an arbitrary, unclaimed port (i.e. 10005); caution: the commands below assume you use the same value for each definition of PORT
+open http://localhost:$PORT/lab
+```
 
 #### Troubleshooting
 
@@ -122,19 +129,26 @@ Once your environment is properly configured on the SJSU HPC system, you need no
 Again, create the first SSH tunnel to the SJSU HPC system head node:
 
 ```shell
-SJSU_ID=
-ssh -L 10001:localhost:10001 $SJSU_ID@coe-hpc1.sjsu.edu
+PORT=# an arbitrary, unclaimed port (i.e. 10005); caution: the commands below assume you use the same value for each definition of PORT
+SJSU_ID=# your SJSU numeric ID (i.e. 123456789)
+ssh -L "$PORT":localhost:$PORT $SJSU_ID@coe-hpc1.sjsu.edu
 ```
 
 Now, create the second SSH tunnel to the GPU running your batch job:
 
 ```shell
+MAIL_USER=# an email address to which an email should be sent upon completion of the batch job
 ROOT=~/cmpe258
-MAIL_USER=
-JOB_ID=$(sbatch --mail-user=$MAIL_USER --export=ALL,ROOT=$ROOT $ROOT/l5kit/cmpe258/script.sh | awk '{print $4}')
+PORT=# an arbitrary, unclaimed port (i.e. 10005); caution: the commands below assume you use the same value for each definition of PORT
+JOB_ID=$(sbatch --mail-user=$MAIL_USER --export=ALL,ROOT=$ROOT,PORT=$PORT $ROOT/l5kit/cmpe258/script.sh | awk '{print $4}')
 sleep 1 # Give slurm time to allocate the resources before calling squeue (you may have to tune this based on cluster traffic)
 GPU_ID=$(squeue | grep $JOB_ID | awk '{print $8}')
-ssh -L 10001:localhost:10001 $(whoami)@$GPU_ID
+ssh -L "$PORT":localhost:$PORT $(whoami)@$GPU_ID
 ```
 
-Finally, open [JupyterLab](http://localhost:10001/lab) in your local web browser.
+Finally, open JupyterLab from your system:
+
+```shell
+PORT=# an arbitrary, unclaimed port (i.e. 10005); caution: the commands below assume you use the same value for each definition of PORT
+open http://localhost:$PORT/lab
+```

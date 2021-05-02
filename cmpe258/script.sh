@@ -9,4 +9,4 @@
 #SBATCH --mail-type=END
 module load python3/3.6.6 cuda/10.0
 source "$ROOT/venv/bin/activate"
-jupyter lab --no-browser --port=10001
+jupyter lab --no-browser --port="$PORT"
