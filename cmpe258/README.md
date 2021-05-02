@@ -94,7 +94,7 @@ By now, your environment should be properly configured on the SJSU HPC system. I
 MAIL_USER=# an email address to which an email should be sent upon completion of the batch job
 PORT=# an arbitrary, unclaimed port (i.e. 10005); caution: the commands below assume you use the same value for each definition of PORT
 OUTPUT_PATH=/home/$(whoami)/cmpe258/l5kit.log
-JOB_ID=$(sbatch --mail-user=$MAIL_USER --output=$OUTPUT_PATH --export=ALL,ROOT=$ROOT,PORT=$PORT,OUTPUT_PATH=$OUTPUT_PATH $ROOT/l5kit/cmpe258/script.sh | awk '{print $4}')
+JOB_ID=$(sbatch --mail-user=$MAIL_USER --output=$OUTPUT_PATH --export=ALL,ROOT=$ROOT,PORT=$PORT $ROOT/l5kit/cmpe258/script.sh | awk '{print $4}')
 sleep 1 # Give slurm time to allocate the resources before calling squeue (you may have to tune this based on cluster traffic)
 GPU_ID=$(squeue | grep $JOB_ID | awk '{print $8}')
 ssh -L "$PORT":localhost:$PORT $(whoami)@$GPU_ID
@@ -103,6 +103,7 @@ ssh -L "$PORT":localhost:$PORT $(whoami)@$GPU_ID
 Within the GPU shell, you now must compute the URL you will use to log in to JupyterLab from your system:
 
 ```shell
+OUTPUT_PATH=/home/$(whoami)/cmpe258/l5kit.log
 cat $OUTPUT_PATH | grep http://localhost | tail -1 | xargs
 ```
 
@@ -143,7 +144,7 @@ MAIL_USER=# an email address to which an email should be sent upon completion of
 ROOT=~/cmpe258
 PORT=# an arbitrary, unclaimed port (i.e. 10005); caution: the commands below assume you use the same value for each definition of PORT
 OUTPUT_PATH=/home/$(whoami)/cmpe258/l5kit.log
-JOB_ID=$(sbatch --mail-user=$MAIL_USER --output=$OUTPUT_PATH --export=ALL,ROOT=$ROOT,PORT=$PORT,OUTPUT_PATH=$OUTPUT_PATH $ROOT/l5kit/cmpe258/script.sh | awk '{print $4}')
+JOB_ID=$(sbatch --mail-user=$MAIL_USER --output=$OUTPUT_PATH --export=ALL,ROOT=$ROOT,PORT=$PORT $ROOT/l5kit/cmpe258/script.sh | awk '{print $4}')
 sleep 1 # Give slurm time to allocate the resources before calling squeue (you may have to tune this based on cluster traffic)
 GPU_ID=$(squeue | grep $JOB_ID | awk '{print $8}')
 ssh -L "$PORT":localhost:$PORT $(whoami)@$GPU_ID
@@ -152,6 +153,7 @@ ssh -L "$PORT":localhost:$PORT $(whoami)@$GPU_ID
 Within the GPU shell, you now must compute the URL you will use to log in to JupyterLab from your system:
 
 ```shell
+OUTPUT_PATH=/home/$(whoami)/cmpe258/l5kit.log
 cat $OUTPUT_PATH | grep http://localhost | tail -1 | xargs
 ```
 
