@@ -1,7 +1,6 @@
 #!/bin/bash
 #
 #SBATCH --job-name=l5kit
-#SBATCH --output=l5kit.log
 #SBATCH --partition=gpu
 #SBATCH --ntasks=1
 #SBATCH --gres=gpu:1
