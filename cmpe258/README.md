@@ -1,4 +1,4 @@
-# Self-driving using Lyft Dataset
+# Uplyfted
 
 Our semester-long Deep Learning (CMPE 258) project focuses on autonomous driving. We specifically targeted a problem that would stretch us to grow rather than one we felt comfortable achieving. The dataset we chose includes 100's of gigabytes of complex data, thereby exceeding our local systems' abilities and forcing us into the cloud. Furthermore, we had to learn to train deep neural networks using GPUs on the SJSU High Performance Computing (HPC) system in order to accelerate our research. Altogether, these factors presented us with a multitude of challenges; through combined effort, we were able to overcome them.
 
@@ -9,9 +9,48 @@ Our semester-long Deep Learning (CMPE 258) project focuses on autonomous driving
 * Cory Sweet ([email](mailto:cory.sweet@sjsu.edu), [GitHub](https://github.com/cx2sweet))
 * Sudha Vijayakumar ([email](mailto:sudha.vijayakumar@sjsu.edu), [GitHub](https://github.com/sudha-vijayakumar))
 
+## Important Links
+
+### Abstract
+
+For a high-level introduction to this project, refer to its [abstract](abstract.pdf).
+
+### Presentation
+
+If you want to review the presentation for this project and you have a Mac, you are encouraged to open [the Keynote file](presentation.key) directly to preserve the animations. However, [a flattened PDF file](presentation.pdf) is also provided in case you are unable to open Keynote files.
+
+### Demos
+
+There are two distinct videos demonstrating different aspects of our project:
+
+* [Core Demo on the SJSU HPC (Visualization, Agent Motion Prediction, and Route Planning)](https://www.youtube.com/watch?v=vzRKTIbzWTk)
+* [SE-RESNET Demo](https://www.youtube.com/watch?v=87EN3FdEhrQ)
+
+### README
+
+Obviously, you've already found the README for this project, but for the sake of completeness, you can recursively find it [here](README.md).
+
+### Source Code
+
+The source code for this project is split across a few different notebooks. They depend on a few modifications to the underlying L5Kit library which can be seen in the commit history. Additionally, you should be aware of [the script that triggers JupyterLab](script.sh) so you can [run this project on the SJSU HPC](#run-on-the-sjsu-hpc). Most importantly, you should ensure you are browsing these files on [the **cmpe258** branch](https://github.com/AndrewSelviaSJSU/l5kit/tree/cmpe258) of [our fork](https://github.com/AndrewSelviaSJSU/l5kit) of [the original repo](https://github.com/lyft/l5kit).
+
+The core notebooks include:
+
+* [Visualization](/examples/visualisation/visualise_data.ipynb)
+* [Agent Motion Prediction](/examples/agent_motion_prediction/agent_motion_prediction.ipynb)
+* [Train](/examples/planning/train.ipynb)
+* [Open Loop Evaluation](/examples/planning/open_loop_test.ipynb)
+* [Closed Loop Evaluation](/examples/planning/closed_loop_test.ipynb)
+
+Additionally, Sudha has built upon this core work with her exploration of the SE-RESNET-50 architecture. You can find its code on [the **SE-RESNET** branch](https://github.com/AndrewSelviaSJSU/l5kit/tree/SRESNET).
+
 ## Data
 
-// TODO
+To educate yourself further on the Lyft Prediction Dataset used for this project, refer to its:
+
+* [Homepage](https://self-driving.lyft.com/level5/data/)
+* [Format](https://github.com/AndrewSelviaSJSU/l5kit/blob/master/data_format.md)
+* [Whitepaper](https://arxiv.org/abs/2006.14480)
 
 ## Run on the SJSU HPC
 
